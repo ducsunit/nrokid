@@ -562,7 +562,7 @@ public class Input {
                         } else if (player.getSession().vnd >= goldTrade2) {
                             PlayerDAO.subVnd(player, goldTrade2);
                             player.tongnap += goldTrade2;
-                            Item Xuvang = ItemService.gI().createNewItem((short) 1535, (kmnap2 * (goldTrade2 / 200)));
+                            Item Xuvang = ItemService.gI().createNewItem((short) 674, (kmnap2 * (goldTrade2 / 200)));
                             InventoryService.gI().addItemBag(player, Xuvang, 9999);
                             InventoryService.gI().sendItemBags(player);
                             Service.getInstance().sendThongBao(player, "Bạn nhận được " + Util.format((kmnap2 * (goldTrade2 / 200)))

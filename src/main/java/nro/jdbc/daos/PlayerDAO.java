@@ -39,9 +39,9 @@ public class PlayerDAO {
         try {
             JSONArray dataInventory = new JSONArray();
 
-            dataInventory.add(2000000000);
-            dataInventory.add(20_000_000);
-            dataInventory.add(200_000);
+            dataInventory.add(2_000_000_000);
+            dataInventory.add(200_000_000);
+            dataInventory.add(200_000_000);
             String inventory = dataInventory.toJSONString();
 
             JSONArray dataLocation = new JSONArray();
@@ -69,9 +69,9 @@ public class PlayerDAO {
             JSONArray dataMagicTree = new JSONArray();
             dataMagicTree.add(0);//isupgr
             dataMagicTree.add(new Date().getTime());
-            dataMagicTree.add(1);//LV
+            dataMagicTree.add(10);//LV
             dataMagicTree.add(new Date().getTime());
-            dataMagicTree.add(5);//curr_pea
+            dataMagicTree.add(23);//curr_pea
             String magicTree = dataMagicTree.toJSONString();
             
             JSONObject checkActive = new JSONObject();

@@ -534,6 +534,17 @@ public class RewardService {
                         Service.getInstance().sendThongBao(player, "Bạn nhận được " + a + " Hồng ngọc");
                     }
                 }
+
+                // up gold map 213 (lam giau)
+                if (mapid == 213) {
+                    if (check ? tile : Util.isTrue(1, 3)) {
+                        Item item = ItemService.gI().createNewItem((short) ConstItem.THOI_VANG);
+                        item.quantity = 1;
+                        InventoryService.gI().addItemBag(player, item, 1);
+                        InventoryService.gI().sendItemBags(player);
+                        Service.getInstance().sendThongBao(player, "Bạn nhận được thỏi vàng");
+                    }
+                }
             }
         }
         return list;

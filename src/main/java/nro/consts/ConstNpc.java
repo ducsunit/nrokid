@@ -135,6 +135,7 @@ public class ConstNpc {
     public static final byte CHUYEN_SINH = 87;
     public static final byte SO_MAY_MAN = 88;
     public static final byte CASINO_TAI_XIU = 89;
+    public static final byte LAM_GIAU = 90;
     //----------------------index menu------------------------------------------
     //index menu base
     public static final int IGNORE_MENU = 712002;
