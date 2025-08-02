@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class SummonDragon {

@@ -30,7 +30,7 @@ import nro.models.player.TestDame;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class SkillService {
 

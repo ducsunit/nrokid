@@ -14,7 +14,7 @@ import nro.services.Service;
 import nro.utils.Util;
 
 /**
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class FideGold extends Boss {
 

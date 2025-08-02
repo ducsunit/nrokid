@@ -11,7 +11,7 @@ import nro.services.SkillService;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class NinjaAoTimFake extends NinjaAoTim {

@@ -11,7 +11,7 @@ import nro.utils.Util;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class RevengePVP extends PVP {

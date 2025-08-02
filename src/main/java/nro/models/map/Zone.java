@@ -39,7 +39,7 @@ import static nro.services.func.ChangeMapService.NON_SPACE_SHIP;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Zone {
 

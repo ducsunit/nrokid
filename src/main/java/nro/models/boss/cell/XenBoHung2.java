@@ -18,7 +18,7 @@ import nro.utils.Util;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class XenBoHung2 extends FutureBoss {

@@ -16,7 +16,7 @@ import static nro.models.item.ItemTimeSieuCap.*;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ItemTimeService {

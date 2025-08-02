@@ -13,7 +13,7 @@ import nro.utils.Util;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class TieuDoiTruong extends FutureBoss {

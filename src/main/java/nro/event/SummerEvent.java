@@ -49,9 +49,10 @@ public class SummerEvent extends Event {
                 @Override
                 public void openBaseMenu(Player player) {
                     if (canOpenNpc(player)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Xin chào, sự kiện hè 2024 đang được diễn ra\n PHÁ TAN CƠN NÓNG MÙA HÈ, Chúc các cư dân vui vẻ.", "Đổi Quà\nSự Kiện", "Tắm\nNước Nóng", "Bắt\nSâu Bọ", "Từ chối");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Xin chào, sự kiện hè 2025 đang được diễn ra\n PHÁ TAN CƠN NÓNG MÙA HÈ, Chúc các cư dân vui vẻ.", "Đổi Quà\nSự Kiện", "Tắm\nNước Nóng", "Bắt\nSâu Bọ", "Từ chối");
                     }
                 }
+
                 @Override
                 public void confirmMenu(Player player, int select) {
                     int menuID = player.iDMark.getIndexMenu();
@@ -128,9 +129,9 @@ public class SummerEvent extends Event {
                         Item rw = ItemService.gI().createNewItem((short) rwID);
                         if (rw.template.type == 11) {// đồ đeo lưng
                             //option
-                                rw.itemOptions.add(new ItemOption(50, Util.nextInt(5, 15)));
-                                rw.itemOptions.add(new ItemOption(77, Util.nextInt(5, 15)));
-                                rw.itemOptions.add(new ItemOption(103, Util.nextInt(5, 15)));
+                            rw.itemOptions.add(new ItemOption(50, Util.nextInt(5, 15)));
+                            rw.itemOptions.add(new ItemOption(77, Util.nextInt(5, 15)));
+                            rw.itemOptions.add(new ItemOption(103, Util.nextInt(5, 15)));
 
                             if (rw.template.id != ConstItem.MANH_AO || rw.template.id != ConstItem.MANH_QUAN || rw.template.id != ConstItem.MANH_GIAY) {
                                 rw.itemOptions.add(new ItemOption(93, Util.nextInt(1, 30)));
@@ -349,12 +350,12 @@ public class SummerEvent extends Event {
             ItemMap itemMap = new ItemMap(z, itemID, 1, x, yEnd, player.id);
             list.add(itemMap);
         }
-        if (Util.isTrue(1,50) && player.event.isUseQuanHoa()) {
+        if (Util.isTrue(1, 50) && player.event.isUseQuanHoa()) {
             RandomCollection<Integer> rd = new RandomCollection<>();
-            rd.add(1,ConstItem.VO_OC);
-            rd.add(1,ConstItem.VO_SO);
-            rd.add(1,ConstItem.CON_CUA);
-            rd.add(1,ConstItem.SAO_BIEN);
+            rd.add(1, ConstItem.VO_OC);
+            rd.add(1, ConstItem.VO_SO);
+            rd.add(1, ConstItem.CON_CUA);
+            rd.add(1, ConstItem.SAO_BIEN);
             itemID = rd.next();
             list.add(new ItemMap(z, itemID, 1, x, yEnd, player.id));
         }
@@ -437,7 +438,7 @@ public class SummerEvent extends Event {
 
         }
 
-        int delay =  itemID == ConstItem.BON_TAM_GO ? 3 : 1;
+        int delay = itemID == ConstItem.BON_TAM_GO ? 3 : 1;
         ItemTimeService.gI().sendItemTime(player, 3779, 60 * delay);
         EffectSkillService.gI().startStun(player, System.currentTimeMillis(), 60000 * delay);
         InventoryService.gI().subQuantityItemsBag(player, item, 1);

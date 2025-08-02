@@ -67,7 +67,7 @@ import nro.services.func.TaiXiu;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Manager {
 

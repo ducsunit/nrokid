@@ -65,7 +65,7 @@
 ///**
 // *
 // * @author DucSunIT
-// * @copyright 💖 GirlkuN 💖
+// *  
 // *
 // */
 //public class Player {
@@ -1350,7 +1350,7 @@ import nro.services.func.SummonDragon;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Player {

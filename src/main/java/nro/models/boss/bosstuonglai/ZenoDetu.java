@@ -19,7 +19,7 @@ import nro.utils.SkillUtil;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class ZenoDetu extends Boss {
 

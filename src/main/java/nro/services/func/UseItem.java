@@ -39,7 +39,7 @@ import nro.models.npc.specialnpc.MabuEgg;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class UseItem {
 
@@ -446,6 +446,9 @@ public class UseItem {
                     case 1540:
                         changeZenoPetKID(pl);
                         break;
+                    case 1548:
+                        changeItachiPetKID(pl);
+                        break;
                     case 1541:
                         hopthiensu(pl, item);
                         break;
@@ -649,7 +652,23 @@ public class UseItem {
             Service.getInstance().sendThongBao(player, "Vui lòng tháo hết đồ đệ tử");
         }
     }
-
+    private void changeItachiPetKID(Player player) {
+        if (player.pet == null) {
+            Service.getInstance().sendThongBao(player, "Yêu cầu có đệ tử");
+            return;
+        }
+        if (InventoryService.gI().getCountEmptyBody(player.pet) == 8) {
+            if (player.pet != null) {
+                NpcService.gI().createMenuConMeo(player, ConstNpc.DE_TU_ITACHI, 21568,
+                        "Vui lòng Chọn Hành tinh Đệ tử Itachi !!!",
+                        "Trái Đất", "Namec", "Xayda");
+            } else {
+                Service.getInstance().sendThongBao(player, "Yêu cầu có đệ tử");
+            }
+        } else {
+            Service.getInstance().sendThongBao(player, "Vui lòng tháo hết đồ đệ tử");
+        }
+    }
     /**
      * *********NEW PET NRO KID********************
      */

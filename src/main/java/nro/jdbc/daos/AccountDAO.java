@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class AccountDAO {

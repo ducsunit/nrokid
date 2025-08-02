@@ -8,13 +8,11 @@ import nro.services.TaskService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import nro.consts.ConstEvent;
 
 /**
- *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
- *
  */
 public class NpcManager {
 
@@ -43,6 +41,9 @@ public class NpcManager {
                 if (npc.tempId == ConstNpc.NOI_BANH && Manager.EVENT_SEVER != 4) {
                     continue;
                 }
+//                if (npc.tempId == ConstNpc.QUY_LAO_KAME && Manager.EVENT_SEVER != 7) {
+//                    continue;
+//                }
                 if (npc.tempId == ConstNpc.ANDROID_AODAI && Manager.EVENT_SEVER != ConstEvent.TET_2024) {
                     continue;
                 }

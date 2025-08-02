@@ -28,7 +28,7 @@ import nro.models.item.ItemTimeSieuCap;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class PlayerDAO {
 

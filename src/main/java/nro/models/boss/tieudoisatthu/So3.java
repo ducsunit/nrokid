@@ -7,7 +7,7 @@ import nro.services.TaskService;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class So3 extends FutureBoss {

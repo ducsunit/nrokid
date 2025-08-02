@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class EffectSkillService {

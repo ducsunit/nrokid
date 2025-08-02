@@ -26,7 +26,7 @@ import java.util.Random;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Itachi extends Boss {
 

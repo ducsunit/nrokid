@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Log {

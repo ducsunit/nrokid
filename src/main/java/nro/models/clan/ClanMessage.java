@@ -3,7 +3,7 @@ package nro.models.clan;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ClanMessage {

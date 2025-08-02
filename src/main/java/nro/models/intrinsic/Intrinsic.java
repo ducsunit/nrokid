@@ -3,7 +3,7 @@ package nro.models.intrinsic;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Intrinsic {

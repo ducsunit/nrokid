@@ -18,7 +18,7 @@ import java.util.logging.Level;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ShopDAO {

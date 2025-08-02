@@ -5,7 +5,7 @@ import nro.models.player.Player;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public interface IBossStatus extends IBossInit {

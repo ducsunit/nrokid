@@ -23,7 +23,7 @@ import nro.models.phuban.DragonNamecWar.TranhNgocService;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class PlayerService {
 

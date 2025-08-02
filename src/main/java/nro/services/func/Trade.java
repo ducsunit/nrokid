@@ -26,7 +26,7 @@ import nro.data.ItemData;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Trade {
 

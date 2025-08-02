@@ -11,7 +11,7 @@ import nro.utils.Log;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class NpcService {

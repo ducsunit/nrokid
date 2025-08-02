@@ -3,7 +3,7 @@ package nro.models.skill;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Skill {

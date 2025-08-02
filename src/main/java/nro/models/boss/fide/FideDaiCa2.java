@@ -9,7 +9,7 @@ import nro.services.func.ChangeMapService;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class FideDaiCa2 extends FutureBoss {

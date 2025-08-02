@@ -69,7 +69,6 @@ import static nro.services.func.SummonDragon.*;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
  */
 public class NpcFactory {
 
@@ -592,7 +591,7 @@ public class NpcFactory {
                                 createOtherMenu(player, ConstNpc.BASE_MENU,
                                         "\b|8|Trò chơi Tài Xỉu đang được diễn ra\n\n|6|Thử vận may của bạn với trò chơi Tài Xỉu! Đặt cược và dự đoán đúng"
                                                 + "\n kết quả, bạn sẽ được nhận thưởng lớn. Hãy tham gia ngay và\n cùng trải nghiệm sự hồi hộp, thú vị trong trò chơi này!"
-                                                + "\n\n|7|(Điều kiện tham gia : Đã mở thành viên)\n\n|2|Đặt tối thiểu: 10 Thỏi vàng\n Tối đa: 1.000 Thỏi vàng"
+                                                + "\n\n|7|(Điều kiện tham gia : Đã mở thành viên)\n\n|2|Đặt tối thiểu: 10 Thỏi vàng\n Tối đa: 10.000 Thỏi vàng"
                                                 + "\n\n|7| Lưu ý : Thoát game khi chốt Kết quả sẽ MẤT Tiền cược và Tiền thưởng", "Thể lệ", "Tham gia");
                             }
                         }
@@ -1359,21 +1358,20 @@ public class NpcFactory {
                                             this.createOtherMenu(player, 1432,
                                                     "|7|QÙA MỐC NẠP"
                                                             + "\n\n|1|Tích lũy đổi Coin của bạn là : " + Util.format(player.tongnap)
-                                                            + "\n\n|5|- Mốc 50k : 5 Bộ Ngọc rồng 1s, 10 item Cuồng Bạo"
-                                                            + "\n- Mốc 100k : 100 Hộp sách kỹ năng, 30 item Cuồng Bạo, 1 trứng đệ Berus"
-                                                            + "\n- Mốc 200k : 500 Hộp sách kỹ năng, 90 item Cuồng Bạo"
-                                                            + "\n- Mốc 500k : 1000 Hộp sách kỹ năng, 99 Máy dò Boss, 300 Hộp pháp sư, 10 rương Sao pha lê VIP, 1 trứng đệ Zeno"
-                                                            + "\n Mốc 1tr : Danh hiệu Thiên tử(Sử dụng cho Đệ tử), 30 Kẹo một mắt, 20 Đá Cầu vòng, 500 Hộp pháp sư, 20 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt thần linh"
-                                                            + "\n Mốc 2tr : 1000 Capsule Bạc, 2000 Capsule Vàng, 2000 Đá Hoàng Kim, 50 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt huỷ diệt"
-                                                            + "\n Mốc 5tr : 3000 Capsule Bạc, 5000 Capsule Vàng, 5000 Đá Hoàng Kim, 15.000 Thỏi vàng, Hộp đồ kích hoạt thiên sứ"
+                                                            + "\n\n|5|- Mốc 50k : 10 Bộ Ngọc rồng 1s, 50 item Cuồng Bạo, 99 thỏi vàng, 1 trứng đệ Mabu"
+                                                            + "\n- Mốc 100k : 100 Hộp sách kỹ năng, 30 item Cuồng Bạo, 1 trứng đệ Berus, Danh hiệu Thiên tử(Sử dụng cho Đệ tử)"
+                                                            + "\n- Mốc 200k : 500 Hộp sách kỹ năng, 1 trứng đệ zeno, 99 item Cuồng Bạo, Hộp đồ kích hoạt thần linh"
+                                                            + "\n- Mốc 400k : 500 Hộp sách kỹ năng, 99 item Cuồng Bạo, 500 Capsule Bạc, 500 Capsule Vàng, Hộp đồ kích hoạt huỷ diệt"
+                                                            + "\n- Mốc 500k : 500 Hộp sách kỹ năng, 500 Capsule Bạc, 500 Capsule Vàng, 20.000 thỏi vàng, 300 Hộp pháp sư, 1 trứng đệ Itachi, Hộp đồ kích hoạt thiên sứ (kèm chỉ số ẩn)"
                                                             + "\n\n|2|Mỗi mốc chỉ nhận được 1 lần !!!",
                                                     "50k" + (player.mot == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
                                                     "100k" + (player.hai == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
                                                     "200k" + (player.ba == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
-                                                    "500k" + (player.bon == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
-                                                    "1Tr" + (player.nam == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
-                                                    "2Tr" + (player.sau == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
-                                                    "5Tr" + (player.bay == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"));
+                                                    "400k" + (player.bon == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
+                                                    "500k" + (player.nam == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"));
+//                                                    "1Tr" + (player.nam == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
+//                                                    "2Tr" + (player.sau == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"),
+//                                                    "5Tr" + (player.bay == 0 ? "\n(Chưa nhận)" : "\n(Đã nhận)"));
                                             break;
                                         case 7:
                                             // nhập code riêng
@@ -1404,6 +1402,7 @@ public class NpcFactory {
                                     }
                                 } else if (player.iDMark.getIndexMenu() == 1432) {
                                     switch (select) {
+                                        //Mốc 50k : 10 Bộ Ngọc rồng 1s, 50 item Cuồng Bạo, 99 thỏi vàng, 1 trứng đệ Mabu
                                         case 0:
                                             if (player.tongnap < 50000) {
                                                 this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
@@ -1426,15 +1425,21 @@ public class NpcFactory {
                                                 Item nro5 = ItemService.gI().createNewItem((short) 18);
                                                 Item nro6 = ItemService.gI().createNewItem((short) 19);
                                                 Item nro7 = ItemService.gI().createNewItem((short) 20);
-                                                Item cuonghoa = ItemService.gI().createNewItem((short) 1386);
-                                                nro1.quantity = 5;
-                                                nro2.quantity = 5;
-                                                nro3.quantity = 5;
-                                                nro4.quantity = 5;
-                                                nro5.quantity = 5;
-                                                nro6.quantity = 5;
-                                                nro7.quantity = 5;
-                                                cuonghoa.quantity = 10;
+                                                Item cuongBao = ItemService.gI().createNewItem((short) 1386);
+                                                Item thoiVang = ItemService.gI().createNewItem((short) 457);
+                                                Item trungMabu = ItemService.gI().createNewItem((short) 1538);
+                                                nro1.quantity = 10;
+                                                nro2.quantity = 10;
+                                                nro3.quantity = 10;
+                                                nro4.quantity = 10;
+                                                nro5.quantity = 10;
+                                                nro6.quantity = 10;
+                                                nro7.quantity = 10;
+                                                cuongBao.quantity = 50;
+                                                thoiVang.quantity = 99;
+                                                trungMabu.quantity = 1;
+
+                                                // thêm vào túi đồ
                                                 InventoryService.gI().addItemBag(player, nro1, 99);
                                                 InventoryService.gI().addItemBag(player, nro2, 99);
                                                 InventoryService.gI().addItemBag(player, nro3, 99);
@@ -1442,11 +1447,16 @@ public class NpcFactory {
                                                 InventoryService.gI().addItemBag(player, nro5, 99);
                                                 InventoryService.gI().addItemBag(player, nro6, 99);
                                                 InventoryService.gI().addItemBag(player, nro7, 99);
-                                                InventoryService.gI().addItemBag(player, cuonghoa, 99);
+                                                InventoryService.gI().addItemBag(player, cuongBao, 99);
+                                                InventoryService.gI().addItemBag(player, thoiVang, 99);
+                                                InventoryService.gI().addItemBag(player, trungMabu, 99);
+
+                                                // gửi đến túi đồ và thông báo
                                                 InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được 5 Bộ Ngọc rồng 1s, 10 item Cuồng Bạo");
+                                                this.npcChat(player, "Bạn nhận được 10 Bộ Ngọc rồng 1s, 50 item Cuồng Bạo, 99 thỏi vàng, 1 trứng đệ Mabu");
                                             }
                                             break;
+                                        //Mốc 100k : 100 Hộp sách kỹ năng, 30 item Cuồng Bạo, 1 trứng đệ Berus, Danh hiệu Thiên tử(Sử dụng cho Đệ tử)
                                         case 1:
                                             if (player.tongnap < 100000) {
                                                 this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
@@ -1456,6 +1466,10 @@ public class NpcFactory {
                                                 this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
                                                 return;
                                             }
+                                            if (player.mot == 0) {
+                                                Service.getInstance().sendThongBao(player, "Vui lòng nhận các mốc trước đó.");
+                                                return;
+                                            }
                                             if (InventoryService.gI().getCountEmptyBag(player) < 3) {
                                                 this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
                                                 return;
@@ -1463,18 +1477,26 @@ public class NpcFactory {
                                             if (player.tongnap >= 100000 && player.hai == 0) {
                                                 player.hai++;
                                                 Item ruongsach = ItemService.gI().createNewItem((short) 1525);
-                                                Item cuonghoa = ItemService.gI().createNewItem((short) 1386);
+                                                Item cuongBao = ItemService.gI().createNewItem((short) 1386);
                                                 Item trungBerus = ItemService.gI().createNewItem((short) 1539);
+                                                Item danhHieuThienTu = ItemService.gI().createNewItem((short) 1326);
                                                 ruongsach.quantity = 100;
-                                                cuonghoa.quantity = 50;
+                                                cuongBao.quantity = 30;
                                                 trungBerus.quantity = 1;
+                                                danhHieuThienTu.quantity = 1;
+
+                                                // thêm vào túi đồ
                                                 InventoryService.gI().addItemBag(player, ruongsach, 1);
-                                                InventoryService.gI().addItemBag(player, cuonghoa, 1);
+                                                InventoryService.gI().addItemBag(player, cuongBao, 1);
                                                 InventoryService.gI().addItemBag(player, trungBerus, 1);
+                                                InventoryService.gI().addItemBag(player, danhHieuThienTu, 1);
+
+                                                // gửi đến túi đồ và thông báo cho người chơi
                                                 InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "200 Hộp sách kỹ năng, 50 item Cuồng Bạo, 1 trứng đệ Berus");
+                                                this.npcChat(player, "Bạn nhận được 100 Hộp sách kỹ năng, 30 item Cuồng Bạo, 1 trứng đệ Berus, Danh hiệu Thiên tử(Sử dụng cho Đệ tử)");
                                             }
                                             break;
+                                        //Mốc 200k : 500 Hộp sách kỹ năng, 1 trứng đệ zeno, 99 item Cuồng Bạo, Hộp đồ kích hoạt thần linh
                                         case 2:
                                             if (player.tongnap < 200000) {
                                                 this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
@@ -1484,6 +1506,10 @@ public class NpcFactory {
                                                 this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
                                                 return;
                                             }
+                                            if (player.hai == 0) {
+                                                Service.getInstance().sendThongBao(player, "Vui lòng nhận các mốc trước đó.");
+                                                return;
+                                            }
                                             if (InventoryService.gI().getCountEmptyBag(player) < 3) {
                                                 this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
                                                 return;
@@ -1491,17 +1517,30 @@ public class NpcFactory {
                                             if (player.tongnap >= 200000 && player.ba == 0) {
                                                 player.ba++;
                                                 Item ruongsach = ItemService.gI().createNewItem((short) 1525);
-                                                Item cuonghoa = ItemService.gI().createNewItem((short) 1386);
+                                                Item trungDeZeno = ItemService.gI().createNewItem((short) 1540);
+                                                Item cuongBao = ItemService.gI().createNewItem((short) 1386);
+                                                Item hopKHTL = ItemService.gI().createNewItem((short) 1558);
+
+                                                // số lượng
                                                 ruongsach.quantity = 500;
-                                                cuonghoa.quantity = 90;
+                                                trungDeZeno.quantity = 1;
+                                                cuongBao.quantity = 99;
+                                                hopKHTL.quantity = 1;
+
+                                                // thêm vào túi đồ
                                                 InventoryService.gI().addItemBag(player, ruongsach, 1);
-                                                InventoryService.gI().addItemBag(player, cuonghoa, 1);
+                                                InventoryService.gI().addItemBag(player, cuongBao, 1);
+                                                InventoryService.gI().addItemBag(player, trungDeZeno, 1);
+                                                InventoryService.gI().addItemBag(player, hopKHTL, 1);
+
+                                                // gửi và thông báo cho người chơi
                                                 InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được 500 Hộp sách kỹ năng, 90 item Cuồng Bạo");
+                                                this.npcChat(player, "Bạn nhận được 500 Hộp sách kỹ năng, 1 trứng đệ zeno, 99 item Cuồng Bạo, Hộp đồ kích hoạt thần linh");
                                             }
                                             break;
+                                        //Mốc 400k : 500 Hộp sách kỹ năng, 99 item Cuồng Bạo, 500 Capsule Bạc, 500 Capsule Vàng, Hộp đồ kích hoạt huỷ diệt
                                         case 3:
-                                            if (player.tongnap < 500000) {
+                                            if (player.tongnap < 400_000) {
                                                 this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
                                                 return;
                                             }
@@ -1509,33 +1548,44 @@ public class NpcFactory {
                                                 this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
                                                 return;
                                             }
+                                            if (player.ba == 0) {
+                                                Service.getInstance().sendThongBao(player, "Vui lòng nhận các mốc trước đó.");
+                                                return;
+                                            }
                                             if (InventoryService.gI().getCountEmptyBag(player) < 4) {
                                                 this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
                                                 return;
                                             }
-                                            if (player.tongnap >= 500000 && player.bon == 0) {
+                                            if (player.tongnap >= 400_000 && player.bon == 0) {
                                                 player.bon++;
+
                                                 Item ruongsach = ItemService.gI().createNewItem((short) 1525);
-                                                Item cuonghoa = ItemService.gI().createNewItem((short) 1237);
-                                                Item maydo = ItemService.gI().createNewItem((short) 1296);
-                                                Item ruongspl = ItemService.gI().createNewItem((short) 1479);
-                                                Item trungZeno = ItemService.gI().createNewItem((short) 1540);
-                                                ruongspl.quantity = 10;
-                                                ruongsach.quantity = 1000;
-                                                cuonghoa.quantity = 500;
-                                                maydo.quantity = 99;
-                                                trungZeno.quantity = 1;
-                                                InventoryService.gI().addItemBag(player, ruongspl, 99);
-                                                InventoryService.gI().addItemBag(player, maydo, 99);
-                                                InventoryService.gI().addItemBag(player, ruongsach, 1);
-                                                InventoryService.gI().addItemBag(player, cuonghoa, 1);
-                                                InventoryService.gI().addItemBag(player, trungZeno, 1);
+                                                Item cuongBao = ItemService.gI().createNewItem((short) 1237);
+                                                Item capsulBac = ItemService.gI().createNewItem((short) 573);
+                                                Item capsulVang = ItemService.gI().createNewItem((short) 574);
+                                                Item hoKHHD = ItemService.gI().createNewItem((short) 1559);
+
+                                                // số lượng
+                                                ruongsach.quantity = 500;
+                                                cuongBao.quantity = 99;
+                                                capsulBac.quantity = 500;
+                                                capsulVang.quantity = 500;
+                                                hoKHHD.quantity = 1;
+
+                                                // thêm vào túi đồ
+                                                InventoryService.gI().addItemBag(player, ruongsach, 99);
+                                                InventoryService.gI().addItemBag(player, cuongBao, 99);
+                                                InventoryService.gI().addItemBag(player, capsulBac, 99);
+                                                InventoryService.gI().addItemBag(player, capsulVang, 99);
+
+                                                InventoryService.gI().addItemBag(player, hoKHHD, 1);
                                                 InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được 2000 Hộp sách kỹ năng, 99 máy dò Boss, 500 Hộp pháp sư, 50 rương Sao pha lê VIP, 1 trứng đệ Zeno");
+                                                this.npcChat(player, "Bạn nhận được 500 Hộp sách kỹ năng, 99 item Cuồng Bạo, 500 Capsule Bạc, 500 Capsule Vàng, Hộp đồ kích hoạt huỷ diệt");
                                             }
                                             break;
+                                        //Mốc 500k : 500 Hộp sách kỹ năng, 500 Capsule Bạc, 500 Capsule Vàng, 20.000 thỏi vàng, 300 Hộp pháp sư, 1 trứng đệ Itachi, Hộp đồ kích hoạt thiên sứ (kèm chỉ số ẩn)
                                         case 4:
-                                            if (player.tongnap < 1000000) {
+                                            if (player.tongnap < 500_000) {
                                                 this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
                                                 return;
                                             }
@@ -1543,97 +1593,147 @@ public class NpcFactory {
                                                 this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
                                                 return;
                                             }
-                                            if (InventoryService.gI().getCountEmptyBag(player) < 5) {
+                                            if (player.bon == 0) {
+                                                Service.getInstance().sendThongBao(player, "Vui lòng nhận các mốc trước đó.");
+                                                return;
+                                            }
+                                            if (InventoryService.gI().getCountEmptyBag(player) < 4) {
                                                 this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
                                                 return;
                                             }
-                                            if (player.tongnap >= 1000000 && player.nam == 0) {
+                                            if (player.tongnap >= 500000 && player.nam == 0) {
                                                 player.nam++;
-                                                Item hopps = ItemService.gI().createNewItem((short) 1237);
-                                                Item danhhieu = ItemService.gI().createNewItem((short) 1326);
-                                                Item cauvong = ItemService.gI().createNewItem((short) 1083);
-                                                Item nrosc = ItemService.gI().createNewItem((short) 1015);
-                                                Item keo = ItemService.gI().createNewItem((short) 899);
-                                                Item khthanlinh = ItemService.gI().createNewItem((short) 1558);
-                                                danhhieu.itemOptions.add(new ItemOption(50, 40));
-                                                danhhieu.itemOptions.add(new ItemOption(77, 55));
-                                                danhhieu.itemOptions.add(new ItemOption(77, 55));
-                                                danhhieu.itemOptions.add(new ItemOption(14, 15));
-                                                danhhieu.itemOptions.add(new ItemOption(101, 1200));
-                                                danhhieu.itemOptions.add(new ItemOption(30, 1));
-                                                nrosc.quantity = 20;
-                                                cauvong.quantity = 20;
-                                                hopps.quantity = 1000;
-                                                keo.quantity = 30;
-                                                khthanlinh.quantity = 1;
-                                                InventoryService.gI().addItemBag(player, nrosc, 99);
-                                                InventoryService.gI().addItemBag(player, danhhieu, 99);
-                                                InventoryService.gI().addItemBag(player, cauvong, 99);
-                                                InventoryService.gI().addItemBag(player, hopps, 999);
-                                                InventoryService.gI().addItemBag(player, keo, 999);
-                                                InventoryService.gI().addItemBag(player, khthanlinh, 1);
+                                                Item ruongsach = ItemService.gI().createNewItem((short) 1525);
+                                                Item capsulBac = ItemService.gI().createNewItem((short) 573);
+                                                Item capsulVang = ItemService.gI().createNewItem((short) 574);
+                                                Item thoiVang = ItemService.gI().createNewItem((short) 457);
+                                                Item hopPhapSu = ItemService.gI().createNewItem((short) 1237);
+                                                Item trungItachi = ItemService.gI().createNewItem((short) 1548);
+                                                Item hopKHTS = ItemService.gI().createNewItem((short) 1105);
+
+                                                // số lượng
+                                                ruongsach.quantity = 500;
+                                                capsulBac.quantity = 500;
+                                                capsulVang.quantity = 500;
+                                                thoiVang.quantity = 20_000;
+                                                hopPhapSu.quantity = 300;
+                                                trungItachi.quantity = 1;
+                                                hopKHTS.quantity = 1;
+
+                                                // thêm vào túi đồ
+                                                InventoryService.gI().addItemBag(player, ruongsach, 99);
+                                                InventoryService.gI().addItemBag(player, capsulBac, 99);
+                                                InventoryService.gI().addItemBag(player, capsulVang, 99);
+                                                InventoryService.gI().addItemBag(player, thoiVang, 99);
+                                                InventoryService.gI().addItemBag(player, hopPhapSu, 99);
+                                                InventoryService.gI().addItemBag(player, trungItachi, 1);
+                                                InventoryService.gI().addItemBag(player, hopKHTS, 1);
+
+                                                // gửi và thông báo đến người chơi
                                                 InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được Danh hiệu Thiên tử, 20 Đá cầu vòng và 1000 Hộp pháp sư, 20 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt thần linh");
+                                                this.npcChat(player, "500 Hộp sách kỹ năng, 500 Capsule Bạc, 500 Capsule Vàng, 20.000 thỏi vàng, 300 Hộp pháp sư, 1 trứng đệ Itachi, Hộp đồ kích hoạt thiên sứ (kèm chỉ số ẩn)");
                                             }
                                             break;
-                                        case 5:
-                                            if (player.tongnap < 2000000) {
-                                                this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
-                                                return;
-                                            }
-                                            if (player.sau != 0) {
-                                                this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
-                                                return;
-                                            }
-                                            if (InventoryService.gI().getCountEmptyBag(player) < 4) {
-                                                this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
-                                                return;
-                                            }
-                                            if (player.tongnap >= 2000000 && player.sau == 0) {
-                                                player.sau++;
-                                                Item csbac = ItemService.gI().createNewItem((short) 573, 1000);
-                                                Item csvang = ItemService.gI().createNewItem((short) 574, 2000);
-                                                Item dahkim = ItemService.gI().createNewItem((short) 1318, 2000);
-                                                Item nrsc = ItemService.gI().createNewItem((short) 1015, 50);
-                                                Item khHuyDiet = ItemService.gI().createNewItem((short) 1559);
-                                                InventoryService.gI().addItemBag(player, csbac, 1);
-                                                InventoryService.gI().addItemBag(player, csvang, 1);
-                                                InventoryService.gI().addItemBag(player, dahkim, 1);
-                                                InventoryService.gI().addItemBag(player, nrsc, 1);
-                                                InventoryService.gI().addItemBag(player, khHuyDiet, 1);
-                                                InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được 1000 Capsule Bạc, 2000 Capsule Vàng, 2000 Đá Hoàng Kim, 50 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt huỷ diệt");
-                                            }
-                                            break;
-                                        case 6:
-                                            if (player.tongnap < 5000000) {
-                                                this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
-                                                return;
-                                            }
-                                            if (player.bay != 0) {
-                                                this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
-                                                return;
-                                            }
-                                            if (InventoryService.gI().getCountEmptyBag(player) < 4) {
-                                                this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
-                                                return;
-                                            }
-                                            if (player.tongnap >= 5000000 && player.bay == 0) {
-                                                player.bay++;
-                                                Item csbac = ItemService.gI().createNewItem((short) 573, 3000);
-                                                Item csvang = ItemService.gI().createNewItem((short) 574, 5000);
-                                                Item dahkim = ItemService.gI().createNewItem((short) 1318, 5000);
-                                                Item tvang = ItemService.gI().createNewItem((short) 457, 15000);
-                                                Item skhts = ItemService.gI().createNewItem((short) 1105, 1);
-                                                InventoryService.gI().addItemBag(player, csbac, 1);
-                                                InventoryService.gI().addItemBag(player, csvang, 1);
-                                                InventoryService.gI().addItemBag(player, dahkim, 1);
-                                                InventoryService.gI().addItemBag(player, tvang, 1);
-                                                InventoryService.gI().addItemBag(player, skhts, 1);
-                                                InventoryService.gI().sendItemBags(player);
-                                                this.npcChat(player, "Bạn nhận được 3000 Capsule Bạc, 5000 Capsule Vàng, 5000 Đá Hoàng Kim, 15.000 Thỏi vàng, Hộp đồ kích hoạt thiên sứ");
-                                            }
-                                            break;
+//                                        case 4:
+//                                            if (player.tongnap < 1000000) {
+//                                                this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
+//                                                return;
+//                                            }
+//                                            if (player.nam != 0) {
+//                                                this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
+//                                                return;
+//                                            }
+//                                            if (InventoryService.gI().getCountEmptyBag(player) < 5) {
+//                                                this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
+//                                                return;
+//                                            }
+//                                            if (player.tongnap >= 1000000 && player.nam == 0) {
+//                                                player.nam++;
+//                                                Item hopps = ItemService.gI().createNewItem((short) 1237);
+//                                                Item danhhieu = ItemService.gI().createNewItem((short) 1326);
+//                                                Item cauvong = ItemService.gI().createNewItem((short) 1083);
+//                                                Item nrosc = ItemService.gI().createNewItem((short) 1015);
+//                                                Item keo = ItemService.gI().createNewItem((short) 899);
+//                                                Item khthanlinh = ItemService.gI().createNewItem((short) 1558);
+//                                                danhhieu.itemOptions.add(new ItemOption(50, 40));
+//                                                danhhieu.itemOptions.add(new ItemOption(77, 55));
+//                                                danhhieu.itemOptions.add(new ItemOption(77, 55));
+//                                                danhhieu.itemOptions.add(new ItemOption(14, 15));
+//                                                danhhieu.itemOptions.add(new ItemOption(101, 1200));
+//                                                danhhieu.itemOptions.add(new ItemOption(30, 1));
+//                                                nrosc.quantity = 20;
+//                                                cauvong.quantity = 20;
+//                                                hopps.quantity = 1000;
+//                                                keo.quantity = 30;
+//                                                khthanlinh.quantity = 1;
+//                                                InventoryService.gI().addItemBag(player, nrosc, 99);
+//                                                InventoryService.gI().addItemBag(player, danhhieu, 99);
+//                                                InventoryService.gI().addItemBag(player, cauvong, 99);
+//                                                InventoryService.gI().addItemBag(player, hopps, 999);
+//                                                InventoryService.gI().addItemBag(player, keo, 999);
+//                                                InventoryService.gI().addItemBag(player, khthanlinh, 1);
+//                                                InventoryService.gI().sendItemBags(player);
+//                                                this.npcChat(player, "Bạn nhận được Danh hiệu Thiên tử, 20 Đá cầu vòng và 1000 Hộp pháp sư, 20 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt thần linh");
+//                                            }
+//                                            break;
+//                                        case 5:
+//                                            if (player.tongnap < 2000000) {
+//                                                this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
+//                                                return;
+//                                            }
+//                                            if (player.sau != 0) {
+//                                                this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
+//                                                return;
+//                                            }
+//                                            if (InventoryService.gI().getCountEmptyBag(player) < 4) {
+//                                                this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
+//                                                return;
+//                                            }
+//                                            if (player.tongnap >= 2000000 && player.sau == 0) {
+//                                                player.sau++;
+//                                                Item csbac = ItemService.gI().createNewItem((short) 573, 1000);
+//                                                Item csvang = ItemService.gI().createNewItem((short) 574, 2000);
+//                                                Item dahkim = ItemService.gI().createNewItem((short) 1318, 2000);
+//                                                Item nrsc = ItemService.gI().createNewItem((short) 1015, 50);
+//                                                Item khHuyDiet = ItemService.gI().createNewItem((short) 1559);
+//                                                InventoryService.gI().addItemBag(player, csbac, 1);
+//                                                InventoryService.gI().addItemBag(player, csvang, 1);
+//                                                InventoryService.gI().addItemBag(player, dahkim, 1);
+//                                                InventoryService.gI().addItemBag(player, nrsc, 1);
+//                                                InventoryService.gI().addItemBag(player, khHuyDiet, 1);
+//                                                InventoryService.gI().sendItemBags(player);
+//                                                this.npcChat(player, "Bạn nhận được 1000 Capsule Bạc, 2000 Capsule Vàng, 2000 Đá Hoàng Kim, 50 Viên Ngọc rồng Siêu cấp, Hộp đồ kích hoạt huỷ diệt");
+//                                            }
+//                                            break;
+//                                        case 6:
+//                                            if (player.tongnap < 5000000) {
+//                                                this.npcChat(player, "|7|Bạn chưa đủ điều kiện nhận!!!!");
+//                                                return;
+//                                            }
+//                                            if (player.bay != 0) {
+//                                                this.npcChat(player, "|7|Bạn đã nhận thưởng rồi mà !!!!");
+//                                                return;
+//                                            }
+//                                            if (InventoryService.gI().getCountEmptyBag(player) < 4) {
+//                                                this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
+//                                                return;
+//                                            }
+//                                            if (player.tongnap >= 5000000 && player.bay == 0) {
+//                                                player.bay++;
+//                                                Item csbac = ItemService.gI().createNewItem((short) 573, 3000);
+//                                                Item csvang = ItemService.gI().createNewItem((short) 574, 5000);
+//                                                Item dahkim = ItemService.gI().createNewItem((short) 1318, 5000);
+//                                                Item tvang = ItemService.gI().createNewItem((short) 457, 15000);
+//                                                Item skhts = ItemService.gI().createNewItem((short) 1105, 1);
+//                                                InventoryService.gI().addItemBag(player, csbac, 1);
+//                                                InventoryService.gI().addItemBag(player, csvang, 1);
+//                                                InventoryService.gI().addItemBag(player, dahkim, 1);
+//                                                InventoryService.gI().addItemBag(player, tvang, 1);
+//                                                InventoryService.gI().addItemBag(player, skhts, 1);
+//                                                InventoryService.gI().sendItemBags(player);
+//                                                this.npcChat(player, "Bạn nhận được 3000 Capsule Bạc, 5000 Capsule Vàng, 5000 Đá Hoàng Kim, 15.000 Thỏi vàng, Hộp đồ kích hoạt thiên sứ");
+//                                            }
+//                                            break;
                                     }
                                 } else if (player.iDMark.getIndexMenu() == ConstNpc.QUA_TAN_THU) {
                                     switch (select) {
@@ -6288,6 +6388,44 @@ public class NpcFactory {
                         } catch (Exception e) {
                             System.out.println("Loi mo de tu zeno");
                         }
+                    case ConstNpc.DE_TU_ITACHI:
+                        try {
+                            switch (select) {
+                                case 0:
+                                    Item itemItachi1 = InventoryService.gI().findItemBagByTemp(player, 1548);
+                                    if (itemItachi1 == null) {
+                                        Service.getInstance().sendThongBao(player, "Không đủ yêu cầu");
+                                        return;
+                                    }
+                                    InventoryService.gI().subQuantityItemsBag(player, itemItachi1, 1);
+                                    InventoryService.gI().sendItemBags(player);
+                                    PetService.gI().changeItachiPet(player, 0);
+                                    break;
+                                case 1:
+                                    Item itemItachi2 = InventoryService.gI().findItemBagByTemp(player, 1548);
+                                    if (itemItachi2 == null) {
+                                        Service.getInstance().sendThongBao(player, "Không đủ yêu cầu");
+                                        return;
+                                    }
+                                    InventoryService.gI().subQuantityItemsBag(player, itemItachi2, 1);
+                                    InventoryService.gI().sendItemBags(player);
+                                    PetService.gI().changeItachiPet(player, 1);
+                                    break;
+                                case 2:
+                                    Item itemItachi3 = InventoryService.gI().findItemBagByTemp(player, 1548);
+                                    if (itemItachi3 == null) {
+                                        Service.getInstance().sendThongBao(player, "Không đủ yêu cầu");
+                                        return;
+                                    }
+                                    InventoryService.gI().subQuantityItemsBag(player, itemItachi3, 1);
+                                    InventoryService.gI().sendItemBags(player);
+                                    PetService.gI().changeItachiPet(player, 2);
+                                    break;
+                            }
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Loi mo de tu itachi");
+                        }
                     case ConstNpc.INFO_ALL:
                         switch (select) {
                             case 0:
@@ -6846,6 +6984,8 @@ public class NpcFactory {
                 return "Sự Kiện\n Tết Nguyên\nĐán 2025";
             case ConstEvent.SU_KIEN_8_3:
                 return "Sự Kiện\n 8/3";
+            case ConstEvent.SU_KIEN_HE_2025:
+                return "Sự Kiện\nHè 2025";
         }
         return "Chưa có\n Sự Kiện";
     }

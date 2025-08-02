@@ -3,7 +3,7 @@ package nro.services.func;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class InventoryServiceNew {

@@ -27,7 +27,7 @@ import nro.models.boss.Boss;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class GokuSuper extends Boss {
 

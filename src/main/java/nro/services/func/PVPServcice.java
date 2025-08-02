@@ -23,7 +23,7 @@ import nro.consts.ConstTranhNgocNamek;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class PVPServcice implements Runnable {

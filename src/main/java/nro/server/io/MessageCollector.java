@@ -10,7 +10,7 @@ import java.net.Socket;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class MessageCollector implements Runnable {

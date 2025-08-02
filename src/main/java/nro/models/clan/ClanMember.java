@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ClanMember {

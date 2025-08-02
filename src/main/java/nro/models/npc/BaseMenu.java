@@ -6,7 +6,7 @@ import nro.server.io.Message;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class BaseMenu {

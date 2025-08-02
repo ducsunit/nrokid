@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class FriendAndEnemyService {

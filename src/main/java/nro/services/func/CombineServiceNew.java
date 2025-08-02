@@ -19,12 +19,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
+
 import nro.data.ItemData;
 import nro.server.Manager;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
  */
 public class CombineServiceNew {
 
@@ -106,7 +106,7 @@ public class CombineServiceNew {
      * Mở tab đập đồ
      *
      * @param player
-     * @param type kiểu đập đồ
+     * @param type   kiểu đập đồ
      */
     public void openTabCombine(Player player, int type) {
         player.combineNew.setTypeCombine(type);
@@ -2655,6 +2655,7 @@ public class CombineServiceNew {
     }
 
     //--------------------------------------------------------------------------
+
     /**
      * r
      * Hiệu ứng mở item

@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class NPoint {
 
@@ -1020,6 +1020,8 @@ public class NPoint {
                 this.hpMax += this.calPercent(this.hpMax, 50L);
             } else if (((Pet) this.player).typePet == 3) {
                 this.hpMax += this.calPercent(this.hpMax, 100L);
+            } else if (((Pet) this.player).typePet == 4) {
+                this.hpMax += this.calPercent(this.hpMax, 150L);
             }
         }
         if (this.player.isPet && this.player.PorataVIP && (((Pet) this.player).master.fusion.typeFusion == 6 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
@@ -1462,6 +1464,8 @@ public class NPoint {
                 this.mpMax += this.calPercent(this.mpMax, 50L);
             } else if (((Pet) this.player).typePet == 3) {
                 this.mpMax += this.calPercent(this.mpMax, 100L);
+            }else if (((Pet) this.player).typePet == 4) {
+                this.mpMax += this.calPercent(this.mpMax, 150L);
             }
         }
         if (this.player.isPet && this.player.PorataVIP && (((Pet) this.player).master.fusion.typeFusion == 6 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
@@ -1946,6 +1950,8 @@ public class NPoint {
                 this.dame += this.calPercent(this.dame, 50L);
             } else if (((Pet) this.player).typePet == 3) {
                 this.dame += this.calPercent(this.dame, 100L);
+            }else if (((Pet) this.player).typePet == 4) {
+                this.dame += this.calPercent(this.dame, 150L);
             }
         }
         if (this.player.isPet && this.player.PorataVIP && (((Pet) this.player).master.fusion.typeFusion == 6 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {

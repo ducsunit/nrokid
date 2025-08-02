@@ -7,7 +7,7 @@ import nro.models.player.Player;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class OpenPowerService {

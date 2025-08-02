@@ -25,7 +25,7 @@ import nro.server.Manager;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class InventoryService {
 

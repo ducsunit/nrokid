@@ -6,7 +6,7 @@ import nro.services.IntrinsicService;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class IntrinsicPlayer {

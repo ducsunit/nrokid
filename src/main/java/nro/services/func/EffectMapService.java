@@ -12,7 +12,7 @@ import nro.services.Service;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class EffectMapService {

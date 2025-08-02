@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ListFriendEnemy<T> extends ArrayList<T> {

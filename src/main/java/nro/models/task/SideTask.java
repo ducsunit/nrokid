@@ -5,7 +5,7 @@ import nro.consts.ConstTask;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class SideTask {

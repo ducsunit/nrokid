@@ -12,7 +12,7 @@ import nro.utils.Util;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Cooler2 extends FutureBoss {
 

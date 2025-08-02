@@ -13,7 +13,6 @@ import nro.utils.Util;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
  */
 public class Pet extends Player {
 
@@ -629,7 +628,9 @@ public class Pet extends Player {
             return 508;
         } else if (this.typePet == 3) {
             return 1427;
-        } 
+        } else if (this.typePet == 4) {
+            return 1472;
+        }
 //        else if (this.typePet == 4) {
 //            return 891;
 //        } 
@@ -652,7 +653,9 @@ public class Pet extends Player {
             return 508;
         } else if (this.typePet == 3 && !this.isTransform) {
             return 1427;
-        } 
+        } else if (this.typePet == 4 && !this.isTransform) {
+            return 1472;
+        }
 //        else if (this.typePet == 4 && !this.isTransform) {
 //            return 891;
 //        } 
@@ -685,7 +688,9 @@ public class Pet extends Player {
             return 509;
         } else if (this.typePet == 3 && !this.isTransform) {
             return 1428;
-        } 
+        } else if (this.typePet == 4 && !this.isTransform) {
+            return 1473;
+        }
 //        else if (this.typePet == 4 && !this.isTransform) {
 //            return 892;
 //        } 
@@ -721,7 +726,9 @@ public class Pet extends Player {
             return 510;
         } else if (this.typePet == 3 && !this.isTransform) {
             return 1429;
-        } 
+        } else if (this.typePet == 4 && !this.isTransform) {
+            return 1474;
+        }
 //        else if (this.typePet == 4 && !this.isTransform) {
 //            return 893;
 //        } 
@@ -856,11 +863,11 @@ public class Pet extends Player {
             Service.getInstance().Send_Caitrang(this);
             Service.getInstance().chat(this, "Ta là Đấng Zeno....");
         }
-//        if (this.typePet == 4) {
-//            this.isTransform = !this.isTransform;
-//            Service.getInstance().Send_Caitrang(this);
-//            Service.getInstance().chat(this, "Ta là Thần Luffy Nika....");
-//        }
+        if (this.typePet == 4) {
+            this.isTransform = !this.isTransform;
+            Service.getInstance().Send_Caitrang(this);
+            Service.getInstance().chat(this, "Ta là Thần Itachi....");
+        }
     }
 
     public void angry(Player plAtt) {

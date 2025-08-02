@@ -3,7 +3,7 @@ package nro.models.task;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class SideTaskTemplate {

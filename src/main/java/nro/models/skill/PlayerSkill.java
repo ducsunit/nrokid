@@ -11,7 +11,7 @@ import java.util.Timer;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class PlayerSkill {
     public Timer timer;

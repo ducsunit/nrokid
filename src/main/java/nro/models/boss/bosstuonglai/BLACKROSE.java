@@ -18,7 +18,7 @@ import nro.services.TaskService;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class BLACKROSE extends Boss {
 

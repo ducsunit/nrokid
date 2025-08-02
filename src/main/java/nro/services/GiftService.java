@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class GiftService {

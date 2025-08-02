@@ -3,7 +3,7 @@ package nro.consts;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ConstMob {

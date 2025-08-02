@@ -3,7 +3,7 @@ package nro.models.map;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class WayPoint {

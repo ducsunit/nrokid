@@ -8,7 +8,7 @@ import nro.models.item.ItemOption;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Inventory {

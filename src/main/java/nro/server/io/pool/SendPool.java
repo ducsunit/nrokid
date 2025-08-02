@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class SendPool {

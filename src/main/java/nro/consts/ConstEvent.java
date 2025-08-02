@@ -11,4 +11,5 @@ public class ConstEvent {
     public static final byte SU_KIEN_TET = 4;
     public static final byte SU_KIEN_8_3 = 5;
     public static final byte TET_2024 = 6;
+    public static final byte SU_KIEN_HE_2025 = 7;
 }

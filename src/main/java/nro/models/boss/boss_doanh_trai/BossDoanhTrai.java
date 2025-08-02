@@ -14,7 +14,7 @@ import nro.utils.Util;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public abstract class BossDoanhTrai extends Boss {

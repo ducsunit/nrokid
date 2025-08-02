@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Broly extends Boss {

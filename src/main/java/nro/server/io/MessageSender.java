@@ -12,7 +12,7 @@ import nro.jdbc.DBService;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class MessageSender implements Runnable {

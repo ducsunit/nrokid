@@ -7,7 +7,7 @@ import nro.consts.ConstNpc;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class IDMark {

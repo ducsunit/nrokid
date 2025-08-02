@@ -15,7 +15,7 @@ import nro.utils.Util;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class BULMA extends Boss {
 

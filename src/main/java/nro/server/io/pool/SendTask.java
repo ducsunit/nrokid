@@ -5,7 +5,7 @@ import nro.server.io.Session;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class SendTask implements Runnable {

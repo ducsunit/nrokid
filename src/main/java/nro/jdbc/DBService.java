@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class DBService {

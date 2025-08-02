@@ -6,7 +6,7 @@ import lombok.Builder;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class BossData {
 

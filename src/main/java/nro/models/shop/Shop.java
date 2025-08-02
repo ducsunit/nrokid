@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class Shop {

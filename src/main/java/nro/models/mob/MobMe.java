@@ -11,7 +11,7 @@
 ///**
 // *
 // * @author DucSunIT
-// * @copyright 💖 GirlkuN 💖
+// *  
 // *
 // */
 //public final class MobMe extends Mob {
@@ -150,7 +150,7 @@ import nro.server.io.Message;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public final class MobMe extends Mob {

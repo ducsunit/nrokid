@@ -35,7 +35,7 @@ import nro.server.io.Message;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public abstract class Boss extends Player implements BossInterface {
 

@@ -20,7 +20,7 @@ import nro.models.mob.Mob;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class MapService {
 

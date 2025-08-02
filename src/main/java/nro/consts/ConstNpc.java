@@ -3,7 +3,7 @@ package nro.consts;
 /**
  *
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  *
  */
 public class ConstNpc {
@@ -321,5 +321,6 @@ public class ConstNpc {
     public static final int DE_TU_BERUS = 1008;
     public static final int DE_TU_MABU = 1009;
     public static final int DE_TU_ZENO = 1010;
+    public static final int DE_TU_ITACHI = 1011;
 
 }

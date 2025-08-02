@@ -32,7 +32,7 @@ import org.json.simple.JSONObject;
 
 /**
  * @author DucSunIT
- * @copyright 💖 GirlkuN 💖
+ *  
  */
 public class Clan {
 
