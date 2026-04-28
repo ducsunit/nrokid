@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balance Calculator - SQL Mock</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --primary: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --line: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(180deg, #0b1021 0%, #0f172a 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; }
+    .sub { color: var(--muted); margin-bottom: 18px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+    }
+    .card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field { margin-bottom: 10px; }
+    input, select {
+      width: 100%;
+      background: #0b1220;
+      color: var(--text);
+      border: 1px solid #253246;
+      border-radius: 8px;
+      padding: 9px 10px;
+      outline: none;
+    }
+    .btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .primary { background: var(--primary); color: #052e16; }
+    .ghost { background: #1f2937; color: var(--text); }
+    .result h3 {
+      margin: 8px 0 10px;
+      font-size: 16px;
+    }
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .chip {
+      background: #0b1220;
+      border: 1px solid #253246;
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .chip .k { color: var(--muted); font-size: 12px; }
+    .chip .v { font-size: 15px; font-weight: 700; margin-top: 3px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid #1f2937;
+      padding: 8px 6px;
+      text-align: left;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    .ok { color: var(--primary); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--danger); }
+    .foot {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Balance Calculator (Mock từ SQL hiện tại)</h1>
+    <div class="sub">
+      Data hiện tại lấy giả lập theo mốc trong SQL (`power_limit`, `mob_template`, `item_shop`).
+      Sau này có thể thay `mockData` bằng API đọc DB động.
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="field">
+          <label>Tier</label>
+          <select id="tier">
+            <option value="1">T1</option>
+            <option value="2">T2</option>
+            <option value="3">T3</option>
+            <option value="4">T4</option>
+            <option value="5">T5</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Slot đồ</label>
+          <select id="slot">
+            <option value="ao">Áo</option>
+            <option value="quan">Quần</option>
+            <option value="gang">Găng</option>
+            <option value="giay">Giày</option>
+            <option value="nhan">Nhẫn</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Độ hiếm</label>
+          <select id="rarity">
+            <option value="thuong">Thường</option>
+            <option value="hiem">Hiếm</option>
+            <option value="rat_hiem">Rất hiếm</option>
+            <option value="event">Event giới hạn</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>ItemImpact (%)</label>
+          <input id="impact" type="number" min="1" max="20" step="0.1" value="8">
+        </div>
+
+        <div class="field">
+          <label>InflationCoef</label>
+          <input id="inflation" type="number" min="0.9" max="1.2" step="0.01" value="1.00">
+        </div>
+
+        <div class="btns">
+          <button class="primary" id="btnCalc">Tính toán</button>
+          <button class="ghost" id="btnReset">Reset</button>
+        </div>
+      </div>
+
+      <div class="card result">
+        <h3>Output đề xuất</h3>
+        <div class="kpi" id="kpi"></div>
+        <table id="tbl"></table>
+        <div class="foot" id="foot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mock data rút từ SQL hiện tại (không phải query thật)
+    const mockData = {
+      powerLimitByTier: {
+        1: { hp: 230000, mp: 230000, damage: 13000, defense: 600, critical: 6 },
+        2: { hp: 350000, mp: 350000, damage: 20000, defense: 1000, critical: 9 },
+        3: { hp: 480000, mp: 480000, damage: 26000, defense: 1600, critical: 10 },
+        4: { hp: 550000, mp: 550000, damage: 30000, defense: 1800, critical: 10 },
+        5: { hp: 600000, mp: 600000, damage: 40000, defense: 2100, critical: 11 }
+      },
+      // Cụm giá từ item_shop: 500..500k, 2m..52m, 68m..150m
+      anchorPriceByTier: {
+        1: 10000,
+        2: 100000,
+        3: 2000000,
+        4: 17000000,
+        5: 100000000
+      },
+      slotCoef: { ao: 1.15, quan: 1.10, gang: 1.20, giay: 1.05, nhan: 1.25 },
+      rarityCoef: { thuong: 1.0, hiem: 1.6, rat_hiem: 2.4, event: 3.0 },
+      // Trọng số phân bổ impact theo slot
+      weights: {
+        gang: { atk: 0.60, crit: 0.25, hp: 0.15, def: 0, ne: 0, mp: 0 },
+        ao: { atk: 0, crit: 0, hp: 0.40, def: 0.45, ne: 0.15, mp: 0 },
+        quan: { atk: 0, crit: 0, hp: 0.55, def: 0.30, ne: 0, mp: 0.15 },
+        giay: { atk: 0, crit: 0, hp: 0.25, def: 0, ne: 0.30, mp: 0.45 },
+        nhan: { atk: 0.40, crit: 0.30, hp: 0.20, def: 0, ne: 0.10, mp: 0 }
+      },
+      caps: { crit: 75, ne: 35, giamst: 60 }
+    };
+
+    function num(n) {
+      return new Intl.NumberFormat('vi-VN').format(Math.round(n));
+    }
+
+    function pct(n) {
+      return `${(Math.round(n * 10) / 10).toFixed(1)}%`;
+    }
+
+    function calc() {
+      const tier = Number(document.getElementById('tier').value);
+      const slot = document.getElementById('slot').value;
+      const rarity = document.getElementById('rarity').value;
+      const impact = Number(document.getElementById('impact').value || 0);
+      const inflation = Number(document.getElementById('inflation').value || 1);
+
+      const base = mockData.powerLimitByTier[tier];
+      const w = mockData.weights[slot];
+      const slotCoef = mockData.slotCoef[slot];
+      const rarityCoef = mockData.rarityCoef[rarity];
+
+      // Baseline player sheet (theo tài liệu SQL-based)
+      const hpSheet = base.hp * 3.4;
+      const mpSheet = base.mp * 3.0;
+      const dmgSheet = base.damage * 7.0;
+      const defSheet = (base.defense * 4) * 2.6;
+      const critSheet = Math.min(base.critical + 35, mockData.caps.crit);
+
+      const dAtk = impact * w.atk;
+      const dHp = impact * w.hp;
+      const dDef = impact * w.def;
+      const dCrit = impact * w.crit;
+      const dNe = impact * w.ne;
+      const dMp = impact * w.mp;
+
+      const price = mockData.anchorPriceByTier[tier] * slotCoef * rarityCoef * inflation;
+
+      // Mob/boss đề xuất theo baseline
+      const mobHp = hpSheet * 0.22;
+      const mobHit = hpSheet * 0.03;
+      const bossHp = mobHp * 32;
+      const bossHit = hpSheet * 0.075;
+
+      const capStateCrit = (critSheet + dCrit) <= mockData.caps.crit;
+      const capStateNe = dNe <= mockData.caps.ne;
+
+      render({
+        tier, hpSheet, mpSheet, dmgSheet, defSheet, critSheet,
+        dAtk, dHp, dDef, dCrit, dNe, dMp,
+        price, mobHp, mobHit, bossHp, bossHit,
+        capStateCrit, capStateNe
+      });
+    }
+
+    function render(d) {
+      const kpi = document.getElementById('kpi');
+      const tbl = document.getElementById('tbl');
+      const foot = document.getElementById('foot');
+
+      kpi.innerHTML = `
+        <div class="chip"><div class="k">Player HP sheet (T${d.tier})</div><div class="v">${num(d.hpSheet)}</div></div>
+        <div class="chip"><div class="k">Player Dame sheet (T${d.tier})</div><div class="v">${num(d.dmgSheet)}</div></div>
+        <div class="chip"><div class="k">Giá đề xuất item shop</div><div class="v">${num(d.price)} vàng</div></div>
+      `;
+
+      tbl.innerHTML = `
+        <tr><th>Hạng mục</th><th>Kết quả</th><th>Ghi chú</th></tr>
+        <tr><td>Option % Dame đề xuất</td><td>${pct(d.dAtk)}</td><td>map vào option 49/50/147</td></tr>
+        <tr><td>Option % HP đề xuất</td><td>${pct(d.dHp)}</td><td>map vào option 77</td></tr>
+        <tr><td>Option % Def đề xuất</td><td>${pct(d.dDef)}</td><td>map vào option 94</td></tr>
+        <tr><td>Option Crit đề xuất</td><td>+${pct(d.dCrit)}</td><td>map vào option 14</td></tr>
+        <tr><td>Option Né đòn đề xuất</td><td>+${pct(d.dNe)}</td><td>map vào option 108</td></tr>
+        <tr><td>Option % MP đề xuất</td><td>${pct(d.dMp)}</td><td>map vào option 103</td></tr>
+        <tr><td>Mob HP đề xuất</td><td>${num(d.mobHp)}</td><td>mob thường cùng tier</td></tr>
+        <tr><td>Mob dame/hit đề xuất</td><td>${num(d.mobHit)}</td><td>~3% HP player/hit</td></tr>
+        <tr><td>Boss HP đề xuất</td><td>${num(d.bossHp)}</td><td>~32x mob HP</td></tr>
+        <tr><td>Boss dame/hit đề xuất</td><td>${num(d.bossHit)}</td><td>~7.5% HP player/hit</td></tr>
+        <tr><td>Check cap Crit</td><td class="${d.capStateCrit ? 'ok' : 'bad'}">${d.capStateCrit ? 'PASS' : 'FAIL'}</td><td>trần 75%</td></tr>
+        <tr><td>Check cap Né</td><td class="${d.capStateNe ? 'ok' : 'bad'}">${d.capStateNe ? 'PASS' : 'FAIL'}</td><td>trần 35%</td></tr>
+      `;
+
+      foot.textContent = "Mock mode: hiện đang lấy dữ liệu giả lập từ SQL. Sau này thay bằng API DB (ví dụ /api/balance/baseline?tier=...).";
+    }
+
+    document.getElementById('btnCalc').addEventListener('click', calc);
+    document.getElementById('btnReset').addEventListener('click', () => {
+      document.getElementById('tier').value = '1';
+      document.getElementById('slot').value = 'ao';
+      document.getElementById('rarity').value = 'thuong';
+      document.getElementById('impact').value = '8';
+      document.getElementById('inflation').value = '1.00';
+      calc();
+    });
+
+    calc();
+  </script>
+</body>
+</html>
