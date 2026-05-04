@@ -614,6 +614,45 @@ export default function VisualEffectPacker() {
     }
   };
 
+  const handleDownloadJSON = () => {
+    try {
+      setError('');
+      if (sprites.length === 0) throw new Error('Vui lòng cắt ít nhất 1 sprite!');
+      
+      const parsedFrames = JSON.parse(framesStr);
+      const parsedAnimations = JSON.parse(animationsStr);
+      const scaleMultiplier = targetZoom / baseZoom;
+
+      const payload = {
+        sprites: sprites.map(s => ({
+            id: s.id,
+            x: Math.round(s.x * scaleMultiplier),
+            y: Math.round(s.y * scaleMultiplier),
+            w: Math.round(s.w * scaleMultiplier),
+            h: Math.round(s.h * scaleMultiplier)
+        })),
+        frames: parsedFrames.map(frameArr => frameArr.map(el => ({
+            ...el,
+            dx: Math.round(el.dx * scaleMultiplier),
+            dy: Math.round(el.dy * scaleMultiplier)
+        }))),
+        animations: parsedAnimations
+      };
+
+      const blob = new Blob([JSON.stringify(payload, null, 4)], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `DataEffect_Custom_X${targetZoom}.json`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   let totalAnims = 0;
   let currentFrameParts = [];
   try {
@@ -890,9 +929,14 @@ export default function VisualEffectPacker() {
                <option value={1}>Xuất File Nhị Phân X1</option>
             </select>
             
-            <button className="btn" onClick={handlePack} style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: '8px', background: 'var(--primary)', padding: '8px' }}>
-              <Download size={18} /> Tải Data X{targetZoom}
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button className="btn" onClick={handlePack} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: 'var(--primary)', padding: '8px' }}>
+                <Download size={18} /> Data X{targetZoom}
+              </button>
+              <button className="btn" onClick={handleDownloadJSON} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: '#f59e0b', padding: '8px' }}>
+                <Download size={18} /> JSON X{targetZoom}
+              </button>
+            </div>
           </div>
         </div>
 
