@@ -82,6 +82,33 @@ export default function VisualEffectPacker() {
     e.target.value = null;
   };
 
+  const handleScaleImage = (factor) => {
+    if (!image) return;
+    if (!confirm(`Hành động này sẽ thu nhỏ ảnh gốc xuống ${factor*100}%. Các mảnh đã cắt (nếu có) sẽ bị xóa vì tọa độ không còn khớp. Bạn có muốn tiếp tục?`)) return;
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.round(image.width * factor));
+    canvas.height = Math.max(1, Math.round(image.height * factor));
+    const ctx = canvas.getContext('2d');
+    
+    // Use high quality image smoothing
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    
+    const resizedImg = new Image();
+    resizedImg.onload = () => {
+      setImage(resizedImg);
+      setSprites([]);
+      setFramesStr('[]');
+      setAnimationsStr('[]');
+      setCurrentAnimIndex(0);
+      setSelectedLayerIndex(null);
+    };
+    resizedImg.src = canvas.toDataURL('image/png');
+  };
+
   const handleDownloadImage = () => {
     if (!image || sprites.length === 0) {
       setError('Hãy cắt ít nhất 1 mảnh (Sprite) để lưu ảnh!');
@@ -751,6 +778,20 @@ export default function VisualEffectPacker() {
               <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center', color: '#a1a1aa', fontSize: '0.9rem' }}>Chưa có ảnh.</div>
             )}
           </div>
+
+          {image && (image.width > 1000 || image.height > 1000) && (
+             <div style={{ marginTop: '12px', padding: '10px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <AlertCircle size={18} color="#f59e0b" />
+                <div style={{ flexGrow: 1 }}>
+                   <p style={{ margin: 0, fontSize: '0.8rem', color: '#f59e0b', fontWeight: 'bold' }}>Ảnh quá to! (Kích thước: {image.width}x{image.height})</p>
+                   <p style={{ margin: 0, fontSize: '0.75rem', color: '#a1a1aa' }}>Bạn nên thu nhỏ ảnh để các mảnh cắt không bị quá khổ so với game.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                   <button className="btn" onClick={() => handleScaleImage(0.5)} style={{ background: '#f59e0b', padding: '2px 8px', fontSize: '0.75rem' }}>Giảm 50%</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.25)} style={{ background: '#ef4444', padding: '2px 8px', fontSize: '0.75rem' }}>Giảm 75%</button>
+                </div>
+             </div>
+          )}
 
           <div style={{ marginTop: '16px' }}>
             <h4 style={{ margin: '0 0 8px 0', fontSize: '0.9rem', color: 'var(--primary)' }}>Kho Sprites (Linh kiện)</h4>
