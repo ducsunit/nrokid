@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Package, Download, AlertCircle, Image as ImageIcon, Play, Square, Move, ChevronLeft, ChevronRight, Layers, Undo2, Trash2, User, AlignCenterHorizontal, AlignEndHorizontal, Plus, Copy, Settings2 } from 'lucide-react';
+import { Package, Download, AlertCircle, Image as ImageIcon, Play, Pause, Square, Move, ChevronLeft, ChevronRight, Layers, Undo2, Trash2, User, AlignCenterHorizontal, AlignEndHorizontal, Plus, Copy, Settings2, Scissors } from 'lucide-react';
 import '../../globals.css';
 
 export default function VisualEffectPacker() {
   const [image, setImage] = useState(null);
+  const [originalImage, setOriginalImage] = useState(null);
   const [sprites, setSprites] = useState([]);
   
   const [framesStr, setFramesStr] = useState('[]');
@@ -34,6 +35,49 @@ export default function VisualEffectPacker() {
   const [previewZoom, setPreviewZoom] = useState(1);
   const [dummyImage, setDummyImage] = useState(null);
   const [dummyScale, setDummyScale] = useState(1);
+  const [effectType, setEffectType] = useState(0);
+  const [effectVersion, setEffectVersion] = useState(221);
+  const [importZoom, setImportZoom] = useState(4);
+  const [animSpeed, setAnimSpeed] = useState(100);
+  const [charParts, setCharParts] = useState({ head: null, body: null, leg: null });
+  const [sliceRows, setSliceRows] = useState(6);
+  const [sliceCols, setSliceCols] = useState(1);
+
+  const handleCharPartUpload = (type, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        setCharParts(prev => ({ ...prev, [type]: img }));
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleClearCharParts = () => {
+    setCharParts({ head: null, body: null, leg: null });
+  };
+
+  const handleLoadSampleChar = useCallback(() => {
+    const head = new Image(); head.src = 'https://i.imgur.com/8Q3uX8q.png';
+    const body = new Image(); body.src = 'https://i.imgur.com/vH9ZJ4Q.png';
+    const leg = new Image(); leg.src = 'https://i.imgur.com/Z4w7vXf.png';
+    head.onload = () => {
+      body.onload = () => {
+        leg.onload = () => {
+          setCharParts({ head, body, leg });
+          setShowPlayerDummy(true);
+        };
+      };
+    };
+  }, []);
+
+  useEffect(() => {
+    handleLoadSampleChar();
+  }, [handleLoadSampleChar]);
 
   const handleDummyUpload = (e) => {
     const file = e.target.files[0];
@@ -61,6 +105,7 @@ export default function VisualEffectPacker() {
       newImg.onload = () => {
         if (!image) {
           setImage(newImg);
+          setOriginalImage(newImg);
           setSprites([]); setFramesStr('[]'); setAnimationsStr('[]');
           setCurrentAnimIndex(0); setSelectedLayerIndex(null);
         } else {
@@ -82,31 +127,159 @@ export default function VisualEffectPacker() {
     e.target.value = null;
   };
 
-  const handleScaleImage = (factor) => {
-    if (!image) return;
-    if (!confirm(`Hành động này sẽ thu nhỏ ảnh gốc xuống ${factor*100}%. Các mảnh đã cắt (nếu có) sẽ bị xóa vì tọa độ không còn khớp. Bạn có muốn tiếp tục?`)) return;
-    
+  const handleScaleImage = (scale) => {
+    if (!originalImage) return;
     const canvas = document.createElement('canvas');
-    canvas.width = Math.max(1, Math.round(image.width * factor));
-    canvas.height = Math.max(1, Math.round(image.height * factor));
+    const width = Math.round(originalImage.width * scale);
+    const height = Math.round(originalImage.height * scale);
+    canvas.width = width;
+    canvas.height = height;
     const ctx = canvas.getContext('2d');
+    ctx.drawImage(originalImage, 0, 0, width, height);
     
-    // Use high quality image smoothing
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    // Cập nhật targetZoom tương ứng (1=X1, 2=X2, 3=X3, 4=X4)
+    setTargetZoom(Math.round(scale * 4));
     
     const resizedImg = new Image();
     resizedImg.onload = () => {
       setImage(resizedImg);
-      setSprites([]);
-      setFramesStr('[]');
-      setAnimationsStr('[]');
-      setCurrentAnimIndex(0);
       setSelectedLayerIndex(null);
     };
     resizedImg.src = canvas.toDataURL('image/png');
+  };
+
+  const handleAutoSlice = () => {
+    if (!originalImage) return;
+    
+    const w = Math.floor(originalImage.width / sliceCols);
+    const h = Math.floor(originalImage.height / sliceRows);
+    
+    const newSprites = [];
+    const newFrames = [];
+    const newAnims = [];
+    
+    let idCounter = 0;
+    for (let r = 0; r < sliceRows; r++) {
+      for (let c = 0; c < sliceCols; c++) {
+        newSprites.push({
+          id: idCounter,
+          x: c * w,
+          y: r * h,
+          w: w,
+          h: h
+        });
+        
+        // Tạo Frame tương ứng cho sprite này
+        // Mặc định căn giữa (dx = -w/2) và đưa lên trên đầu (dy = -150)
+        newFrames.push([{
+          spriteId: idCounter,
+          dx: -Math.floor(w / 2),
+          dy: -150 
+        }]);
+        
+        newAnims.push(idCounter);
+        idCounter++;
+      }
+    }
+    
+    setSprites(newSprites);
+    setFramesStr(JSON.stringify(newFrames));
+    setAnimationsStr(JSON.stringify(newAnims));
+    setCurrentAnimIndex(0);
+    alert(`Đã cắt tự động ${idCounter} khung hình!`);
+  };
+
+  const handleImportBinary = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = new DataView(event.target.result);
+        let offset = 0;
+        
+        const readByte = () => {
+          const val = data.getUint8(offset);
+          offset += 1;
+          return val;
+        };
+        const readShort = () => {
+          const val = data.getInt16(offset, false); // Big Endian
+          offset += 2;
+          return val;
+        };
+
+        // 1. Sprites
+        const numSprites = readByte();
+        const loadedSprites = [];
+        for (let i = 0; i < numSprites; i++) {
+          const id = readByte();
+          let x, y;
+          const isShortFormat = !(effectType === 0 || effectType === 1 || effectVersion < 220);
+          if (!isShortFormat) {
+            x = readByte();
+            y = readByte();
+          } else {
+            x = readShort();
+            y = readShort();
+          }
+          const w = readByte();
+          const h = readByte();
+
+          // Tự động scale tọa độ theo tỉ lệ Zoom
+          const multiplier = targetZoom / importZoom;
+          loadedSprites.push({ 
+            id, 
+            x: Math.round(x * multiplier), 
+            y: Math.round(y * multiplier), 
+            w: Math.round(w * multiplier), 
+            h: Math.round(h * multiplier) 
+          });
+        }
+
+        // 2. Frames
+        const numFrames = readShort();
+        const loadedFrames = [];
+        for (let i = 0; i < numFrames; i++) {
+          const numElements = readByte();
+          const elements = [];
+          for (let j = 0; j < numElements; j++) {
+            const dx = readShort();
+            const dy = readShort();
+            const spriteId = readByte();
+            
+            const multiplier = targetZoom / importZoom;
+            elements.push({ 
+                dx: Math.round(dx * multiplier), 
+                dy: Math.round(dy * multiplier), 
+                spriteId 
+            });
+          }
+          loadedFrames.push(elements);
+        }
+
+        // 3. Animations
+        const numAnims = readShort();
+        const loadedAnims = [];
+        for (let i = 0; i < numAnims; i++) {
+          loadedAnims.push(readShort());
+        }
+
+        setSprites(loadedSprites);
+        setFramesStr(JSON.stringify(loadedFrames, null, 2));
+        setAnimationsStr(JSON.stringify(loadedAnims));
+        setCurrentAnimIndex(0);
+        setSelectedLayerIndex(null);
+        setError('');
+        alert('Đã nhập dữ liệu thành công! Hãy tải ảnh tương ứng lên để xem kết quả.');
+
+      } catch (err) {
+        setError('Lỗi khi đọc file nhị phân: ' + err.message);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    e.target.value = null;
   };
 
   const handleDownloadImage = () => {
@@ -217,21 +390,41 @@ export default function VisualEffectPacker() {
           if (showPlayerDummy) {
              ctx.save();
              ctx.translate(250, 250);
-             ctx.scale(dummyScale, dummyScale);
+             // Tự động scale nhân vật theo bản X (TargetZoom)
+             const charScale = targetZoom / 4; 
+             ctx.scale(charScale, charScale);
 
-             if (dummyImage) {
-               ctx.drawImage(dummyImage, -Math.floor(dummyImage.width / 2), -Math.floor(dummyImage.height / 2));
+             // 1. Vẽ nền đất (Ground)
+             ctx.beginPath();
+             ctx.moveTo(-200, 45);
+             ctx.lineTo(200, 45);
+             ctx.strokeStyle = '#4ade80';
+             ctx.lineWidth = 2;
+             ctx.stroke();
+             
+             // Vẽ bóng đổ (Shadow)
+             ctx.beginPath();
+             ctx.ellipse(0, 45, 20, 5, 0, 0, Math.PI * 2);
+             ctx.fillStyle = 'rgba(0,0,0,0.2)';
+             ctx.fill();
+
+             // 2. Vẽ nhân vật
+             if (charParts.head || charParts.body || charParts.leg) {
+               // Vẽ chân
+               if (charParts.leg) ctx.drawImage(charParts.leg, -charParts.leg.width/2, 45 - charParts.leg.height);
+               // Vẽ thân
+               if (charParts.body) ctx.drawImage(charParts.body, -charParts.body.width/2, 45 - 25 - charParts.body.height);
+               // Vẽ đầu
+               if (charParts.head) ctx.drawImage(charParts.head, -charParts.head.width/2, 45 - 45 - charParts.head.height);
              } else {
-               ctx.translate(-250, -250);
-               ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+               // Vẽ hình nôm nếu không có ảnh nhân vật
+               ctx.fillStyle = '#a1a1aa';
+               ctx.fillRect(-10, 0, 20, 40); // Body
                ctx.beginPath();
-               ctx.arc(250, 235, 10, 0, Math.PI * 2);
+               ctx.arc(0, -10, 15, 0, Math.PI * 2); // Head
                ctx.fill();
-               ctx.fillRect(242, 247, 16, 18);
-               ctx.fillRect(242, 265, 6, 10);
-               ctx.fillRect(252, 265, 6, 10);
-               ctx.fillRect(234, 247, 6, 14);
-               ctx.fillRect(260, 247, 6, 14);
+               ctx.fillRect(-15, 0, 5, 45); // Left leg
+               ctx.fillRect(10, 0, 5, 45); // Right leg
              }
 
              ctx.restore();
@@ -302,7 +495,7 @@ export default function VisualEffectPacker() {
       requestRef.current = requestAnimationFrame(drawFrame);
       return () => cancelAnimationFrame(requestRef.current);
     }
-  }, [isPlaying, image, sprites, framesStr, animationsStr, currentAnimIndex, showOnionSkin, showPlayerDummy, selectedLayerIndex, targetZoom, baseZoom, dummyImage, dummyScale]);
+  }, [isPlaying, image, sprites, framesStr, animationsStr, currentAnimIndex, showOnionSkin, showPlayerDummy, selectedLayerIndex, targetZoom, baseZoom, dummyImage, dummyScale, charParts]);
 
   const handleMouseDown = (e) => {
     if (!image) return;
@@ -392,6 +585,7 @@ export default function VisualEffectPacker() {
 
   const handleClearImage = () => {
     setImage(null);
+    setOriginalImage(null);
     setCurrentRect(null);
     handleClearAll();
   };
@@ -519,9 +713,12 @@ export default function VisualEffectPacker() {
       const currentFrames = framesStr.trim() === '[]' || !framesStr ? [] : JSON.parse(framesStr);
       const currentAnimations = animationsStr.trim() === '[]' || !animationsStr ? [] : JSON.parse(animationsStr);
       
+      // Tìm sprite để lấy thông số w (nhằm căn giữa chính xác hơn nếu cần, nhưng dx=0 là chuẩn tâm NRO)
+      const sprite = sprites.find(s => s.id === spriteId);
+      
       if (currentAnimations.length === 0) {
-        addEmptyFrame(); // Sẽ chạy async nên phải tạm fix bằng cách gọi logic thủ công
-        currentFrames.push([{ dx: 0, dy: 0, spriteId }]);
+        addEmptyFrame(); 
+        currentFrames.push([{ dx: 0, dy: -50, spriteId }]); // Mặc định dx=0 là căn giữa nhân vật, dy=-50 là trên đầu
         setFramesStr(JSON.stringify(currentFrames, null, 2));
         currentAnimations.push(currentFrames.length - 1);
         setAnimationsStr(JSON.stringify(currentAnimations));
@@ -534,7 +731,7 @@ export default function VisualEffectPacker() {
       if (validIndex >= currentAnimations.length) validIndex = 0;
       const frameIndex = currentAnimations[validIndex];
       
-      currentFrames[frameIndex].push({ dx: 0, dy: 0, spriteId });
+      currentFrames[frameIndex].push({ dx: 0, dy: -50, spriteId });
       setFramesStr(JSON.stringify(currentFrames, null, 2));
       setSelectedLayerIndex(currentFrames[frameIndex].length - 1);
     } catch(e){}
@@ -605,7 +802,8 @@ export default function VisualEffectPacker() {
       }
 
       const payload = {
-        version: 221,
+        version: effectVersion,
+        type: effectType,
         sprites: packedSprites,
         frames: parsedFrames.map(frameArr => frameArr.map(el => ({
             ...el,
@@ -680,6 +878,68 @@ export default function VisualEffectPacker() {
     }
   };
 
+  const handleExportStandard = async () => {
+    if (!image || sprites.length === 0) {
+      setError('Hãy cắt ít nhất 1 mảnh (Sprite) để xuất!');
+      return;
+    }
+    const effectId = prompt("Nhập ID hiệu ứng (Ví dụ: 237):", "237");
+    if (!effectId) return;
+
+    setEffectType(0); // Luôn ép về Type 0 cho chuẩn danh hiệu
+    setEffectVersion(221);
+    
+    // 1. Xuất file Binary DataEffect
+    try {
+      const parsedFrames = JSON.parse(framesStr);
+      const parsedAnimations = JSON.parse(animationsStr);
+      const scaleMultiplier = targetZoom / baseZoom;
+      
+      const response = await fetch('/api/effect-packer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          version: 221,
+          type: 0,
+          sprites: sprites.map(s => ({
+            id: s.id, x: s.x, y: s.y, w: s.w, h: s.h
+          })),
+          frames: parsedFrames.map(frameArr => frameArr.map(el => ({
+              ...el,
+              dx: Math.round(el.dx * scaleMultiplier),
+              dy: Math.round(el.dy * scaleMultiplier)
+          }))),
+          animations: parsedAnimations
+        }),
+      });
+
+      if (!response.ok) throw new Error('API server lỗi');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `DataEffect_${effectId}`;
+      a.click();
+
+      // 2. Xuất file Ảnh ImgEffect
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(image, 0, 0);
+      
+      const imgUrl = canvas.toDataURL('image/png');
+      const aImg = document.createElement('a');
+      aImg.href = imgUrl;
+      aImg.download = `ImgEffect_${effectId}.png`;
+      aImg.click();
+
+      alert(`Đã xuất thành công bộ file cho ID ${effectId}!\n- DataEffect_${effectId}\n- ImgEffect_${effectId}.png`);
+    } catch (err) {
+      setError('Lỗi khi xuất chuẩn: ' + err.message);
+    }
+  };
+
   let totalAnims = 0;
   let currentFrameParts = [];
   try {
@@ -710,6 +970,19 @@ export default function VisualEffectPacker() {
                 <input type="checkbox" checked={autoFrameMode} onChange={(e) => setAutoFrameMode(e.target.checked)} style={{ width: '18px', height: '18px', cursor: 'pointer' }} />
                 <span style={{ marginLeft: '8px', fontSize: '0.8rem', color: autoFrameMode ? '#10b981' : '#a1a1aa' }}>{autoFrameMode ? 'BẬT (Phù hợp Aura)' : 'TẮT (Phù hợp Ghép Boss)'}</span>
             </label>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'var(--glass-bg)', padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
+            <span style={{ fontSize: '0.8rem', color: '#e4e4e7' }}>Loại (Type):</span>
+            <select value={effectType} onChange={(e) => setEffectType(Number(e.target.value))} style={{ background: '#27272a', color: '#3b82f6', border: '1px solid #3f3f46', borderRadius: '4px', fontSize: '0.8rem', padding: '2px 4px' }}>
+                <option value={0}>0 (Danh hiệu/Hào quang)</option>
+                <option value={1}>1 (Hiệu ứng tĩnh)</option>
+                <option value={2}>2 (Hiệu ứng động/Boss)</option>
+            </select>
+            <span style={{ fontSize: '0.8rem', color: '#e4e4e7', marginLeft: '8px' }}>Ver:</span>
+            <select value={effectVersion} onChange={(e) => setEffectVersion(Number(e.target.value))} style={{ background: '#27272a', color: '#f59e0b', border: '1px solid #3f3f46', borderRadius: '4px', fontSize: '0.8rem', padding: '2px 4px' }}>
+                <option value={221}>221 (Mới)</option>
+                <option value={200}>200 (Cũ)</option>
+            </select>
         </div>
       </header>
 
@@ -754,6 +1027,19 @@ export default function VisualEffectPacker() {
                   <Trash2 size={14} /> Xóa ảnh
                 </button>
               )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#4338ca', padding: '2px 8px', borderRadius: '6px' }}>
+                <span style={{fontSize: '0.7rem', color: '#fff'}}>Dữ liệu nạp bản:</span>
+                <select value={importZoom} onChange={(e) => setImportZoom(Number(e.target.value))} style={{ background: 'transparent', color: '#fff', border: 'none', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                    <option value={4}>X4</option>
+                    <option value={3}>X3</option>
+                    <option value={2}>X2</option>
+                    <option value={1}>X1</option>
+                </select>
+                <label style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '8px', marginLeft: '5px' }}>
+                    <Package size={14} /> Nhập Data
+                    <input type="file" hidden onChange={handleImportBinary} />
+                </label>
+              </div>
             </div>
           </div>
           
@@ -779,16 +1065,22 @@ export default function VisualEffectPacker() {
             )}
           </div>
 
-          {image && (image.width > 1000 || image.height > 1000) && (
-             <div style={{ marginTop: '12px', padding: '10px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <AlertCircle size={18} color="#f59e0b" />
+          {image && (
+             <div style={{ marginTop: '12px', padding: '10px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ flexGrow: 1 }}>
-                   <p style={{ margin: 0, fontSize: '0.8rem', color: '#f59e0b', fontWeight: 'bold' }}>Ảnh quá to! (Kích thước: {image.width}x{image.height})</p>
-                   <p style={{ margin: 0, fontSize: '0.75rem', color: '#a1a1aa' }}>Bạn nên thu nhỏ ảnh để các mảnh cắt không bị quá khổ so với game.</p>
+                   <p style={{ margin: 0, fontSize: '0.8rem', color: '#e4e4e7', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                     <Settings2 size={16} color="#3b82f6" /> Thu nhỏ ảnh gốc
+                   </p>
+                   <p style={{ margin: 0, fontSize: '0.75rem', color: '#a1a1aa' }}>
+                     {image.width}x{image.height} 
+                     { (image.width > 1000 || image.height > 1000) && <span style={{color: '#f59e0b', marginLeft: '8px'}}>(Quá to!)</span> }
+                   </p>
                 </div>
                 <div style={{ display: 'flex', gap: '5px' }}>
-                   <button className="btn" onClick={() => handleScaleImage(0.5)} style={{ background: '#f59e0b', padding: '2px 8px', fontSize: '0.75rem' }}>Giảm 50%</button>
-                   <button className="btn" onClick={() => handleScaleImage(0.25)} style={{ background: '#ef4444', padding: '2px 8px', fontSize: '0.75rem' }}>Giảm 75%</button>
+                   <button className="btn" onClick={() => handleScaleImage(1)} style={{ background: '#10b981', padding: '4px 12px', fontSize: '0.8rem', fontWeight: 'bold' }}>X4</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.75)} style={{ background: '#3b82f6', padding: '4px 12px', fontSize: '0.8rem', fontWeight: 'bold' }}>X3</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.5)} style={{ background: '#f59e0b', padding: '4px 12px', fontSize: '0.8rem', fontWeight: 'bold' }}>X2</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.25)} style={{ background: '#ef4444', padding: '4px 12px', fontSize: '0.8rem', fontWeight: 'bold' }}>X1</button>
                 </div>
              </div>
           )}
@@ -824,17 +1116,26 @@ export default function VisualEffectPacker() {
         {/* CỘT 2: LIVE PREVIEW & TIMELINE */}
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '12px' }}>
-            <h3 style={{ margin: 0, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1rem' }}>
-              <Move size={16}/> Sân khấu Ghép
-              <select value={previewZoom} onChange={(e) => setPreviewZoom(Number(e.target.value))} style={{ background: '#27272a', color: '#10b981', border: '1px solid #3f3f46', borderRadius: '4px', fontSize: '0.8rem', padding: '2px 4px', cursor: 'pointer', marginLeft: '8px' }}>
+            <h3 style={{ margin: 0, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Play size={18} color="#10b981" /> 2. Sân khấu Ghép
+              <select value={previewZoom} onChange={(e) => setPreviewZoom(Number(e.target.value))} style={{ background: '#27272a', color: '#3b82f6', border: '1px solid #3f3f46', borderRadius: '4px', fontSize: '0.8rem', padding: '2px 4px', cursor: 'pointer' }}>
+                <option value={0.5}>50%</option>
                 <option value={1}>100%</option>
-                <option value={1.5}>150%</option>
                 <option value={2}>200%</option>
+                <option value={3}>300%</option>
+                <option value={4}>400%</option>
               </select>
             </h3>
-            <button className="btn" style={{ background: isPlaying ? '#ef4444' : '#10b981', padding: '4px 12px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem' }} onClick={() => setIsPlaying(!isPlaying)}>
-              {isPlaying ? <><Square size={14}/> Dừng</> : <><Play size={14}/> Chạy</>}
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(0,0,0,0.3)', padding: '2px 10px', borderRadius: '20px', border: '1px solid #3f3f46' }}>
+                    <span style={{ fontSize: '0.7rem', color: '#a1a1aa' }}>Tốc độ:</span>
+                    <input type="range" min="20" max="500" step="10" value={animSpeed} onChange={(e) => setAnimSpeed(Number(e.target.value))} style={{ width: '60px', height: '4px', cursor: 'pointer' }} />
+                    <span style={{ fontSize: '0.7rem', color: '#10b981', width: '35px' }}>{animSpeed}ms</span>
+                </div>
+                <button className="btn" onClick={() => setIsPlaying(!isPlaying)} style={{ background: isPlaying ? '#ef4444' : '#10b981', color: 'white', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px' }}>
+                    {isPlaying ? <Pause size={14} /> : <Play size={14} />} {isPlaying ? 'Dừng' : 'Chạy'}
+                </button>
+            </div>
           </div>
           
           <div style={{
@@ -885,26 +1186,35 @@ export default function VisualEffectPacker() {
                <input type="checkbox" checked={showOnionSkin} onChange={(e) => setShowOnionSkin(e.target.checked)} />
                <Layers size={14} /> Hiện bóng mờ (Onion Skin)
             </label>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <label style={{ cursor: 'pointer', fontSize: '0.85rem', color: '#e4e4e7', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                 <input type="checkbox" checked={showPlayerDummy} onChange={(e) => setShowPlayerDummy(e.target.checked)} />
-                 <User size={14} /> Hiện Nhân vật mẫu
-              </label>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '8px', marginTop: '4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'space-between' }}>
+                <label style={{ cursor: 'pointer', fontSize: '0.85rem', color: '#e4e4e7', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                   <input type="checkbox" checked={showPlayerDummy} onChange={(e) => setShowPlayerDummy(e.target.checked)} />
+                   <User size={14} /> Hiện Nhân vật mẫu
+                </label>
+                {showPlayerDummy && (
+                  <button className="btn" onClick={handleLoadSampleChar} style={{ padding: '2px 10px', fontSize: '0.7rem', background: '#3b82f6', color: '#fff', borderRadius: '4px' }}>
+                    Nạp mẫu Trái Đất
+                  </button>
+                )}
+              </div>
               
               {showPlayerDummy && (
-                <>
-                  <select value={dummyScale} onChange={(e) => setDummyScale(Number(e.target.value))} style={{ background: '#27272a', color: '#10b981', border: '1px solid #3f3f46', borderRadius: '4px', fontSize: '0.8rem', padding: '2px 4px', cursor: 'pointer' }}>
-                    <option value={1}>Size X1</option>
-                    <option value={2}>Size X2</option>
-                    <option value={3}>Size X3</option>
-                    <option value={4}>Size X4</option>
-                  </select>
-
-                  <label className="btn" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 8px', fontSize: '0.75rem', background: '#3b82f6', color: '#fff', borderRadius: '4px' }}>
-                    <Plus size={12} /> Tải ảnh NV
-                    <input type="file" accept="image/png, image/jpeg" hidden onChange={handleDummyUpload} />
+                <div style={{ display: 'flex', gap: '4px', width: '100%' }}>
+                  <label className="btn" style={{ flex: 1, padding: '4px', fontSize: '0.7rem', background: charParts.head ? '#10b981' : '#3f3f46', textAlign: 'center' }}>
+                    Đầu <input type="file" hidden onChange={(e) => handleCharPartUpload('head', e)} />
                   </label>
-                </>
+                  <label className="btn" style={{ flex: 1, padding: '4px', fontSize: '0.7rem', background: charParts.body ? '#10b981' : '#3f3f46', textAlign: 'center' }}>
+                    Thân <input type="file" hidden onChange={(e) => handleCharPartUpload('body', e)} />
+                  </label>
+                  <label className="btn" style={{ flex: 1, padding: '4px', fontSize: '0.7rem', background: charParts.leg ? '#10b981' : '#3f3f46', textAlign: 'center' }}>
+                    Chân <input type="file" hidden onChange={(e) => handleCharPartUpload('leg', e)} />
+                  </label>
+                  {(charParts.head || charParts.body || charParts.leg) && (
+                    <button onClick={handleClearCharParts} style={{ background: '#ef4444', border: 'none', color: 'white', borderRadius: '4px', padding: '0 8px', fontSize: '0.7rem' }}>X</button>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -912,8 +1222,24 @@ export default function VisualEffectPacker() {
 
         {/* CỘT 3: TỔNG HỢP LAYER & EXPORT */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
-          <div className="glass-panel" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+            <div className="glass-panel" style={{ padding: '12px' }}>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '0.9rem', color: '#3b82f6' }}>Cắt tự động (Grid Slice)</h3>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '0.7rem', color: '#a1a1aa' }}>Hàng:</span>
+                  <input type="number" value={sliceRows} onChange={(e) => setSliceRows(Number(e.target.value))} style={{ width: '100%', background: '#27272a', border: '1px solid #3f3f46', color: '#fff', padding: '4px', borderRadius: '4px' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '0.7rem', color: '#a1a1aa' }}>Cột:</span>
+                  <input type="number" value={sliceCols} onChange={(e) => setSliceCols(Number(e.target.value))} style={{ width: '100%', background: '#27272a', border: '1px solid #3f3f46', color: '#fff', padding: '4px', borderRadius: '4px' }} />
+                </div>
+                <button className="btn" onClick={handleAutoSlice} style={{ alignSelf: 'flex-end', background: '#3b82f6', padding: '6px 10px', fontSize: '0.8rem' }}>
+                  <Scissors size={14} /> Cắt ngay
+                </button>
+              </div>
+            </div>
+
+            <div className="glass-panel" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 12px 0', fontSize: '1rem', display: 'flex', justifyContent: 'space-between' }}>
                 <span>Quản lý Mảnh (Layers)</span>
                 <span style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 'normal' }}>{currentFrameParts.length} mảnh</span>
@@ -970,13 +1296,18 @@ export default function VisualEffectPacker() {
                <option value={1}>Xuất File Nhị Phân X1</option>
             </select>
             
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button className="btn" onClick={handlePack} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: 'var(--primary)', padding: '8px' }}>
-                <Download size={18} /> Data X{targetZoom}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button className="btn" onClick={handleExportStandard} style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: '8px', background: '#8b5cf6', padding: '10px', fontWeight: 'bold', boxShadow: '0 4px 14px 0 rgba(139, 92, 246, 0.4)' }}>
+                <Package size={18} /> Xuất chuẩn Server NRO
               </button>
-              <button className="btn" onClick={handleDownloadJSON} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: '#f59e0b', padding: '8px' }}>
-                <Download size={18} /> JSON X{targetZoom}
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button className="btn" onClick={handlePack} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: 'var(--primary)', padding: '8px' }}>
+                  <Download size={18} /> Data X{targetZoom}
+                </button>
+                <button className="btn" onClick={handleDownloadJSON} style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '8px', background: '#f59e0b', padding: '8px' }}>
+                  <Download size={18} /> JSON X{targetZoom}
+                </button>
+              </div>
             </div>
           </div>
         </div>

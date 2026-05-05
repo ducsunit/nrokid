@@ -18,7 +18,7 @@ export default function Dashboard() {
             <Database size={28} color="var(--primary)" />
             NRO Modding Toolkit
           </h2>
-          
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
             <a href="/tools/mob-editor" className="glass-panel" style={{ textDecoration: 'none', transition: 'all 0.3s ease', display: 'block', border: '1px solid rgba(92, 107, 192, 0.3)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
@@ -94,7 +94,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      
+
       <footer style={{ marginTop: '60px', textAlign: 'center', color: '#444', fontSize: '0.8rem', borderTop: '1px solid #222', paddingTop: '20px' }}>
         NRO Kid Modding Toolkit © 2024 - Professional Game Development Assets
       </footer>

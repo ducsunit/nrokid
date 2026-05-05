@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Image as ImageIcon, Download, Trash2, Wand2, Maximize2, Move, AlertCircle, ChevronLeft } from 'lucide-react';
+import { Image as ImageIcon, Download, Trash2, Wand2, Maximize2, Move, AlertCircle, ChevronLeft, Settings2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function BackgroundRemover() {
   const [image, setImage] = useState(null);
+  const [originalImage, setOriginalImage] = useState(null);
   const [processedImage, setProcessedImage] = useState(null);
   const [mode, setMode] = useState('smart'); // 'smart' or 'nro'
   const [bgColor, setBgColor] = useState({ r: 0, g: 0, b: 0 });
@@ -24,12 +25,33 @@ export default function BackgroundRemover() {
         const img = new Image();
         img.onload = () => {
           setImage(img);
+          setOriginalImage(img);
         };
         img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const handleScaleImage = (factor) => {
+    if (!originalImage) return;
+    if (!confirm(`Hành động này sẽ thu nhỏ ảnh gốc xuống ${factor*100}%. Bạn có muốn tiếp tục?`)) return;
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.round(originalImage.width * factor));
+    canvas.height = Math.max(1, Math.round(originalImage.height * factor));
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+    
+    const resizedImg = new Image();
+    resizedImg.onload = () => {
+      setImage(resizedImg);
+    };
+    resizedImg.src = canvas.toDataURL('image/png');
+  };
+
 
   const processImage = (img, bg, thresh, smooth, currentMode) => {
     if (!img || !canvasRef.current) return;
@@ -179,6 +201,21 @@ export default function BackgroundRemover() {
               )}
             </div>
           </div>
+
+          {image && (
+             <div style={{ padding: '10px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ flexGrow: 1 }}>
+                   <p style={{ margin: 0, fontSize: '0.85rem', color: '#e4e4e7', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                     <Settings2 size={16} color="#3b82f6" /> Thu nhỏ ảnh gốc
+                   </p>
+                </div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                   <button className="btn" onClick={() => handleScaleImage(0.75)} style={{ background: '#3b82f6', padding: '4px 12px', fontSize: '0.8rem' }}>75%</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.5)} style={{ background: '#f59e0b', padding: '4px 12px', fontSize: '0.8rem' }}>50%</button>
+                   <button className="btn" onClick={() => handleScaleImage(0.25)} style={{ background: '#ef4444', padding: '4px 12px', fontSize: '0.8rem' }}>25%</button>
+                </div>
+             </div>
+          )}
 
           <div style={{ 
             flexGrow: 1, 
